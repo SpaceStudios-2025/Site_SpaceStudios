@@ -1,14 +1,13 @@
 <script setup>
   import MenuDashboard from '@/components/Admin/MenuDashboard.vue';
-  import NewsDashboard from '@/components/Admin/NewsDashboard.vue';
 </script>
 
 <template>
   <div>
     <MenuDashboard/>
-    <router-link to=""></router-link>
-    <NewsDashboard></NewsDashboard>
+    <!-- <NewsDashboard/> -->
+    <router-view v-slot="{ Component }">
+      <component :is="Component" @sendInfo="handleInfo"/>
+    </router-view>
   </div>
 </template>
-<style lang="">
-</style>

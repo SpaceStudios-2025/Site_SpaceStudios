@@ -10,7 +10,16 @@ export default async function routes(to, from, next){
           console.log(isAuthenticated);
     
           if(isAuthenticated){
-            next();
+            if(to.meta?.admin){
+              if(await auth.isAdmin){
+                next();
+              }else{
+                next({name: 'home'});
+                console.log("Voce precisa ser administrador!");
+              }
+            }else{
+              next();
+            }
           }else{
             next({name: 'home'});
           }

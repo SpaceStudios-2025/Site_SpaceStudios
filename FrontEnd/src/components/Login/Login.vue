@@ -151,7 +151,7 @@
             height: 40px;
 
             border: none;
-            background-color: #d11f1f;
+            background-color: #2273cf;
             border-radius: 20px;
 
             font-weight: bold;
@@ -159,7 +159,7 @@
             margin: 10px 0 40px 0;
 
             cursor: pointer;
-            box-shadow: 0px 0px 4px 3px rgba(209, 31, 31,.5);
+            box-shadow: 0px 0px 4px 3px rgba(69, 103, 250, 0.5);
 
             color: #fff;
 
@@ -168,7 +168,7 @@
 
         & button:hover{
             width: 50%;
-            box-shadow: 0px 0px 4px 4px rgba(209, 31, 31,.5);
+            box-shadow: 0px 0px 4px 4px rgba(69, 103, 250, 0.5);
         }
     }
 

@@ -11,15 +11,15 @@
                 <li class="btn-menu" @click="closeMenu"><a href="/#estudio"> O Estudio </a></li>
                 <li class="btn-menu" @click="closeMenu"><a href="/#contato"> Contato </a></li>
             </ul>
-            <img src="../assets/img/icone.png" alt="Icone do Space Studios" @click="goHome">
+            <img src="@/assets/img/icone.png" alt="Icone do Space Studios" @click="goHome">
             <ul class="menu-content-right" :class="{ 'active': isMenuOpen }">
-                <li class="btnhome" :class="{ 'active': isMenuOpen }" @click="closeMenu"><a href="/"> Home </a></li>
-                <li class="btn-menu" @click="closeMenu"><a href="/news"> News </a></li>
-                <li class="btn-menu" @click="closeMenu"><a href=""> Em Breve </a></li>
-                <li v-if="auth.isAuthenticated && auth.isAdmin" class="btn-menu" @click="closeMenu"><a href="/dashboard"> DashBoard </a></li>
-                <li class="btn-menu" @click="closeMenu"><a href="/jogos"> Jogos </a></li>
-                <li v-if="!auth.isAuthenticated" class="sign in" @click="closeMenu"><a href="/login"> Sign In </a></li>
-                <li v-else class="sign out" @click="logout"><a href=""> Sign Out </a></li>
+                <li class="btnhome" :class="{ 'active': isMenuOpen }" @click="closeMenu"><router-link to="/"> Home </router-link></li>
+                <li class="btn-menu" @click="closeMenu"><router-link to="/noticias"> News </router-link></li>
+                <li class="btn-menu" @click="closeMenu"><router-link to=""> Em Breve </router-link></li>
+                <li v-if="auth.isAuthenticated && auth.isAdmin" class="btn-menu" @click="closeMenu"><router-link to="/dashboard"> DashBoard </router-link></li>
+                <li class="btn-menu" @click="closeMenu"><router-link to="/jogos"> Jogos </router-link></li>
+                <li v-if="!auth.isAuthenticated" class="sign in" @click="closeMenu"><router-link to="/login"> Sign In </router-link></li>
+                <li v-else class="sign out" @click="logout"><router-link to=""> Sign Out </router-link></li>
             </ul>
         </div>
     </div>
@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         goHome() {
-            window.location.href = '/#home';
+            router.push('/#home');
         },
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;

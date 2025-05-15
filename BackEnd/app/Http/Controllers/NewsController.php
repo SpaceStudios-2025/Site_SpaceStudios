@@ -30,15 +30,15 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(News $news)
+    public function show($id)
     {
         return News::findOrFail($id);
-        }
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request, $id)
     {
         $news = News::findOrFail($id);
         $news->update($request->all());

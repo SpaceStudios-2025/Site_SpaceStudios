@@ -1,13 +1,19 @@
 <template lang="">
     <div class="bar">
-        <h2 class="title">News</h2>
+        <h2 class="title">{{texto}}</h2>
         <div class="container">
             <img src="@/assets/img/logo-space.png" alt="Logo">
             <h3> Space Studios </h3>
         </div>
     </div>
 </template>
-<script>
+<script setup>
+
+defineProps({
+    texto: String
+});
+
+
 </script>
 <style scoped>
     .bar{

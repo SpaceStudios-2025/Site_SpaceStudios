@@ -1,5 +1,5 @@
 <template>
-  <BarTop/>
+  <BarTop :texto="title"/>
     <div class="dashboard">
       <div class="newsBox">
         <div class="titulo">
@@ -15,15 +15,20 @@
               <p>Data: {{new Date(noticia.created_at).toLocaleDateString('pt-BR')}}</p>
 
               <div class="buttons">
-                <button class="btn_view">
+                <button class="btn_view" @click="view">
                   <span class="material-icons">visibility</span>
                 </button>
-                <button class="btn_edit">
+                <button class="btn_edit" @click="EditarNoticia">
                   <span class="material-icons">edit</span>
                 </button>
                 <button class="btn_delete" @click="Destroy(noticia.id)">
                   <span class="material-icons">delete</span>
                 </button>
+                
+              </div>
+
+              <div v-if="edit" class="edit">
+                <EditNews @close="edit = false" :id="noticia.id"/>
               </div>
             </li>
           </ul>
@@ -39,15 +44,30 @@
 <script setup>
   import BarTop from '@/components/Admin/Details/BarTop.vue';
   import CreateNews from '@/components/Admin/News/CreateNews.vue';
-  import {onMounted, ref} from 'vue';
+  import EditNews from '@/components/Admin/News/EditNews.vue';
+  import {onMounted, ref, defineEmits} from 'vue';
 
   import http from '@/services/http.js';
+  import router from '@/router'
 
   const create = ref(false);
+  const edit = ref(false);
+  const emit = defineEmits(['sendInfo']);
 
   function CreationNews(){
     create.value = true;
   }
+  
+  function EditarNoticia(){
+    edit.value = true;
+  }
+
+  
+  function view(){
+    router.push('/noticias');
+  }
+
+  const title = ref('News');
 
   const noticias = ref();
 
@@ -74,10 +94,22 @@
 
   onMounted(() => {
     News();
+
+    emit('sendInfo',{mensagem: 'News'});
   });
 
 </script>
 <style scoped>
+
+.edit{
+    width: 70%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%,-50%);
+  }
 
 
   /* Global */

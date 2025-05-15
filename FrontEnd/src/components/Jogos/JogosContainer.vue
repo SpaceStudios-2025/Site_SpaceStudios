@@ -8,10 +8,10 @@
         </form>
 
         <div class="content">
-            <div class="card-game" v-for="(game, index) in limitedGames" :key="index">
-                <img :src="game.img" alt="Imagem do Jogo" class="game-img">
-                <h1>{{ game.nome }}</h1>
-                <p>{{ game.describe }}</p>
+            <div class="card-game" v-for="(game, index) in displayedGames" :key="index">
+                <img v-if="game.imageUrl" :src="game.imageUrl" alt="Imagem do Jogo" class="game-img">
+                <h1>{{ game.title }}</h1>
+                <p>{{ game.description }}</p>
 
                 <button @click="goToLink(game.link)"> 
                     <p>Jogar</p>
@@ -21,67 +21,91 @@
         </div>
 
         <div class="button-container">
-            <button v-if="hasMoreGames" @click="showMoreGames" class="btn">Ver Mais</button>
+            <button v-if="displayedGames.length < games.length" @click="showMoreGames" class="btn">Ver Mais</button>
             <button v-if="displayedCount > 6" @click="showLessGames" class="btn">Ver Menos</button>
         </div>
+
     </div>
 </template>
 
-<script>
-import arcane from '@/assets/img/capas/arcane.png';
-import angry from '@/assets/img/capas/angry.png';
-import dessert from '@/assets/img/capas/dessert.png';
-import christmas from '@/assets/img/capas/christamas.png';
-import teach from '@/assets/img/capas/teach.png';
-import space from '@/assets/img/capas/space.png';
+<script setup>
+import { ref, onMounted } from 'vue';
+import http from '@/services/http.js';
 
-export default {
-    data() {
-        return {
-            searchQuery: '',
-            games: [
-                { nome: 'Arcane Rise', img: `${arcane}`, describe: "Arcane Rise é um jogo de ação mágica onde você enfrenta a corrupção de um mundo em colapso.", link: 'https://ultrabyte-studios.itch.io/arcane-rise' },
-                { nome: 'Dessert Duo', img: `${dessert}`, describe: "Dessert Duo é um jogo cooperativo onde dois jogadores preparam e servem sobremesas em uma cozinha agitada.", link: 'https://ultrabyte-studios.itch.io/dessert-duo' },
-                { nome: 'Christmas Gift', img: `${christmas}`, describe: "Christmas Gift é um jogo de plataforma onde você ajuda o Papai Noel a entregar presentes e superar obstáculos natalinos.", link: 'https://ultrabyte-studios.itch.io/christmas-gift' },
-                { nome: 'Teach Code', img: `${teach}`, describe: "Teach Code é um jogo educativo que ensina lógica de programação de forma interativa e divertida, utilizando desafios e comandos simples para resolver problemas.", link: 'https://ultrabyte-studios.itch.io/teach-code' },
-                { nome: 'Space Smash', img: `${space}`, describe: "Space Smash é um jogo arcade onde você controla uma nave espacial para rebater uma bola e destruir blocos no espaço.", link: 'https://ultrabyte-studios.itch.io/space-smash' },
-                { nome: 'Angry Cat', img: `${angry}`, describe: "Angry Cat é um jogo de ação onde você controla um gato que luta contra inimigos em um sonho, enfrentando desafios cada vez maiores.", link: 'https://ultrabyte-studios.itch.io/angrycat' },
-            ],
-            displayedCount: 6 // Number of games to display initially
-        }
-    },
-    computed: {
-        filteredGames() {
-            return this.games.filter(game => {
-                const words = game.nome.toLowerCase().split(' ');
-                return words.some(word => word.startsWith(this.searchQuery.toLowerCase()));
-            });
-        },
-        limitedGames() {
-            return this.filteredGames.slice(0, this.displayedCount);
-        },
-        hasMoreGames() {
-            return this.filteredGames.length > this.displayedCount;
-        }
-    },
-    methods: {
-        searchGames() {
-            // This method is called when the search button is clicked
-            // You can add any additional logic here if needed
-            // Currently, it just filters the games based on the search query
-            this.displayedCount = 6; // Reset displayed count to show the first 6 results
-        },
-        showMoreGames() {
-            this.displayedCount += 6; // Increase the count by 6 when "Ver Mais" is clicked
-        },
-        showLessGames() {
-            this.displayedCount = Math.max(this.displayedCount - 6, 6); // Decrease the count by 6, but not below 6
-        },
-        goToLink(link) {
-            window.open(link, '_blank');
-        },
+// Importar Jogos do banco de dados
+
+const games = ref([]);
+
+async function Games() {
+    try {
+        const { data } = await http.get('/games');
+        games.value = data;
+
+        games.value = await Promise.all(data.map(async (game) => {
+            if (game.image) {
+                game.imageUrl = await ImageUrl(game.image);
+            }
+            return game;
+        }));
+
+        // Inicializa displayedGames com os primeiros jogos
+        displayedGames.value = games.value.slice(0, displayedCount.value);
+    } catch (error) {
+        console.log("Erro ao carregar jogos: " + error);
     }
 }
+
+
+async function ImageUrl(img) {
+  try {
+    const url = await http.get(`/image/${img}`, {
+      responseType: 'blob',
+    });
+    const imageUrl = URL.createObjectURL(url.data);
+    return imageUrl;
+  } catch (error) {
+    console.log('Error: ' + error);
+    return null;
+  }
+}
+
+onMounted(() => {
+    Games();
+})
+
+
+function goToLink(link) {
+  window.open(link, '_blank');
+}
+
+// Barra de pesquisa
+const searchQuery = ref('');
+const displayedGames = ref([]);
+const displayedCount = ref(6); // Número inicial de jogos a serem exibidos
+
+async function searchGames() {
+    if (searchQuery.value.trim() === '') {
+        displayedGames.value = games.value.slice(0, displayedCount.value);
+    } else {
+        const filteredGames = games.value.filter(game => 
+            game.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+        displayedGames.value = filteredGames.slice(0, displayedCount.value);
+    }
+}
+
+// Mostrar mais e menos
+function showMoreGames() {
+    displayedCount.value += 6; // Aumenta o número de jogos exibidos
+    searchGames(); // Atualiza a lista de jogos exibidos
+}
+
+function showLessGames() {
+    displayedCount.value = Math.max(6, displayedCount.value - 6); // Diminui o número de jogos exibidos, mas não abaixo de 6
+    searchGames(); // Atualiza a lista de jogos exibidos
+}
+
+
 </script>
 
 <style scoped>

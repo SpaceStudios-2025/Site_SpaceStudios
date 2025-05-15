@@ -5,35 +5,27 @@
           <h1>Dashboard</h1>
         </div>
         <nav class="nav-links">
-          <a href="#" class="nav-link">
+          <router-link href="/dashboard/" class="nav-link">
             <svg class="icon" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z" fill="currentColor"/></svg>
             <span>Cursos</span>
-          </a>
-          <a href="#" class="nav-link">
+          </router-link>
+          <router-link to="/dashboard/noticias" class="nav-link">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 18h4v-8H4v8zm6 0h4v-12h-4v12zm6 0h4v-4h-4v4z" fill="currentColor"/></svg>
             <span>News</span>
-          </a>
-          <a href="#" class="nav-link">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M4 18h4v-8H4v8zm6 0h4v-12h-4v12zm6 0h4v-4h-4v4z" fill="currentColor"/></svg>
-            <span>Admins</span>
-          </a>
-          <a href="#" class="nav-link">
+          </router-link>
+          <router-link to="/dashboard/jogos" class="nav-link">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM19.43 12.98a7.074 7.074 0 000-1.95l2.11-1.65a.5.5 0 00.12-.62l-2-3.46a.5.5 0 00-.6-.23L16.5 6.37a7.06 7.06 0 00-1.66-.97l-.32-2.54a.5.5 0 00-.5-.43h-4a.5.5 0 00-.5.43l-.32 2.54a7.057 7.057 0 00-1.66.97L4.94 6.12a.5.5 0 00-.6.23l-2 3.46a.5.5 0 00.12.62l2.11 1.65a7.07 7.07 0 000 1.95l-2.11 1.65a.5.5 0 00-.12.62l2 3.46a.5.5 0 00.6.23l2.68-1.5a7.06 7.06 0 001.66.97l.32 2.54a.5.5 0 00.5.43h4a.5.5 0 00.5-.43l.32-2.54a7.06 7.06 0 001.66-.97l2.68 1.5a.5.5 0 00.6-.23l2-3.46a.5.5 0 00-.12-.62l-2.11-1.65z" fill="currentColor"/></svg>
-            <span>Perfil</span>
-          </a>
+            <span>Games</span>
+          </router-link>
 
-          <a href="/" class="nav-link">
+          <router-link to="/" class="nav-link">
             <span>Voltar</span>
-          </a>
+          </router-link>
         </nav>
       </aside>
     </div>
 </template>
-<script>
-export default {
 
-}
-</script>
 <style scoped>
 .dashboard {
     display: flex;
@@ -46,6 +38,8 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
+
+    z-index: 9999;
 }
 
 .sidebar {

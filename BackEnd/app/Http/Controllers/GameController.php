@@ -15,9 +15,6 @@ class GameController extends Controller
         return Game::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -26,13 +23,14 @@ class GameController extends Controller
             'image' => 'nullable|string',
             'link' => 'required|url',
         ]);
+        
         return Game::create($data);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Game $game)
+    public function show($id)
     {
         return Game::findOrFail($id);
     }
@@ -40,18 +38,25 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Game $game)
+    public function update(Request $request,$id)
     {
         $game = Game::findOrFail($id);
         $game->update($request->all());
-        return $game;
+        return response()->json([
+            'message' => 'Jogo Editado com sucesso',
+            'data' => $game
+        ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Game $game)
+    public function destroy($id)
     {
-        return Game::destroy($id);
+        $games = Game::findOrFail($id); // Verifica se existe
+
+        $games->delete(); // Exclui o item
+
+        return response()->json([
+            'message' => 'Jogo excluído com sucesso!',
+            'data' => $games
+        ], 200);
     }
 }
