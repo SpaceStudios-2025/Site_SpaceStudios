@@ -53,4 +53,31 @@ export default [
             admin: false
         }
     },
+    {
+        path: '/sobreosjogos',
+        name: 'Sobre Os Jogos',
+        component: () => import('@/components/pages/SobreOsJogosComponent.vue'),
+        meta: {
+            auth: false,
+            admin: false
+        }
+    },
+    {
+        path: '/privacidade',
+        name: 'Politica de Privacidade',
+        component: () => import('@/components/pages/PoliticaPrivacidadeComponent.vue'),
+        meta: {
+            auth: false,
+            admin: false
+        }
+    },
+    {
+        path: '/desenvolvimento',
+        name: 'Desenvolvimento',
+        component: () => import('@/components/pages/DesenvolvimentoComponent.vue'),
+        meta: {
+            auth: false,
+            admin: false
+        }
+    },
 ]

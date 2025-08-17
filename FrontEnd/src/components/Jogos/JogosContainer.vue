@@ -1,371 +1,345 @@
 <template>
-    <div class="container">
-        <h1 class="title">Jogos</h1>
+  <main class="store" role="main" aria-label="Loja de jogos">
+    <!-- Cabeçalho -->
+    <header class="store__header">
+      <h1 class="store__title">Nossos Jogos 🎮</h1>
 
-        <form class="find" @submit.prevent="searchGames">
-            <input type="text" v-model="searchQuery" placeholder="Digite o nome do curso...">
-            <button type="submit"><img src="@/assets/img/find.png" alt=""></button>
-        </form>
+      <form class="store__search" @submit.prevent="searchGames" role="search" aria-label="Buscar jogos">
+        <input
+          class="store__searchInput"
+          type="search"
+          v-model="searchQuery"
+          placeholder="Pesquisar jogo..."
+          aria-label="Pesquisar jogo"
+        />
+        <button class="store__searchBtn" type="submit" aria-label="Pesquisar">
+          <img src="@/assets/img/find.png" alt="" aria-hidden="true" />
+        </button>
+      </form>
+    </header>
 
-        <div class="content">
-            <div class="card-game" v-for="(game, index) in displayedGames" :key="index">
-                <img v-if="game.imageUrl" :src="game.imageUrl" alt="Imagem do Jogo" class="game-img">
-                <h1>{{ game.title }}</h1>
-                <p>{{ game.description }}</p>
+    <!-- Grade de jogos -->
+    <section class="games" aria-label="Lista de jogos">
 
-                <button @click="goToLink(game.link)"> 
-                    <p>Jogar</p>
-                    <img src="@/assets/img/Icones/externalLinkIcon.png" alt="">
-                </button>
+      <p v-if="!displayedGames.length" class="games__empty">Nenhum jogo encontrado.</p>
+
+      <div v-else class="games__grid">
+        <article v-for="(game, i) in displayedGames" :key="i" class="card" itemscope itemtype="https://schema.org/VideoGame">
+          <div class="card__bg" :style="{ backgroundImage: `url(${game.imageUrl})` }">
+            <div class="card__overlay">
+              <p class="card__meta" itemprop="genre">{{ game.genre || 'Aventura' }}</p>
+              <h3 class="card__title" itemprop="name">{{ game.title }}</h3>
+              <a :href="game.link" target="_blank" rel="noopener" class="btn" itemprop="url">Jogar Agora</a>
             </div>
-        </div>
-
-        <div class="button-container">
-            <button v-if="displayedGames.length < games.length" @click="showMoreGames" class="btn">Ver Mais</button>
-            <button v-if="displayedCount > 6" @click="showLessGames" class="btn">Ver Menos</button>
-        </div>
-
-    </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import http from '@/services/http.js';
-
-// Importar Jogos do banco de dados
+import { ref, onMounted } from "vue";
+import http from "@/services/http.js";
 
 const games = ref([]);
+const displayedGames = ref([]);
+const searchQuery = ref("");
 
 async function Games() {
-    try {
-        const { data } = await http.get('/games');
-        games.value = data;
-
-        games.value = await Promise.all(data.map(async (game) => {
-            if (game.image) {
-                game.imageUrl = await ImageUrl(game.image);
-            }
-            return game;
-        }));
-
-        // Inicializa displayedGames com os primeiros jogos
-        displayedGames.value = games.value.slice(0, displayedCount.value);
-    } catch (error) {
-        console.log("Erro ao carregar jogos: " + error);
-    }
+  try {
+    const { data } = await http.get("/games");
+    games.value = await Promise.all(
+      data.map(async (game) => {
+        if (game.image) game.imageUrl = await ImageUrl(game.image);
+        return game;
+      })
+    );
+    displayedGames.value = games.value;
+  } catch (e) {
+    console.log("Erro ao carregar jogos:", e);
+  }
 }
-
 
 async function ImageUrl(img) {
   try {
-    const url = await http.get(`/image/${img}`, {
-      responseType: 'blob',
-    });
-    const imageUrl = URL.createObjectURL(url.data);
-    return imageUrl;
-  } catch (error) {
-    console.log('Error: ' + error);
+    const res = await http.get(`/image/${img}`, { responseType: "blob" });
+    return URL.createObjectURL(res.data);
+  } catch (e) {
+    console.log("Erro ao carregar imagem:", e);
     return null;
   }
 }
 
-onMounted(() => {
-    Games();
-})
+onMounted(Games);
 
-
-function goToLink(link) {
-  window.open(link, '_blank');
+function searchGames() {
+  const q = searchQuery.value.trim().toLowerCase();
+  displayedGames.value = q
+    ? games.value.filter((g) => g.title?.toLowerCase().includes(q))
+    : games.value;
 }
-
-// Barra de pesquisa
-const searchQuery = ref('');
-const displayedGames = ref([]);
-const displayedCount = ref(6); // Número inicial de jogos a serem exibidos
-
-async function searchGames() {
-    if (searchQuery.value.trim() === '') {
-        displayedGames.value = games.value.slice(0, displayedCount.value);
-    } else {
-        const filteredGames = games.value.filter(game => 
-            game.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-        );
-        displayedGames.value = filteredGames.slice(0, displayedCount.value);
-    }
-}
-
-// Mostrar mais e menos
-function showMoreGames() {
-    displayedCount.value += 6; // Aumenta o número de jogos exibidos
-    searchGames(); // Atualiza a lista de jogos exibidos
-}
-
-function showLessGames() {
-    displayedCount.value = Math.max(6, displayedCount.value - 6); // Diminui o número de jogos exibidos, mas não abaixo de 6
-    searchGames(); // Atualiza a lista de jogos exibidos
-}
-
-
 </script>
 
 <style scoped>
-    .container {
-        width: 100%;
-        height: auto;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        flex-wrap: wrap;
-        font-family: Cal sans;
-        gap: 40px;
-        padding: 30px;
-        background-color: #fff;
-    }
+/* ================================
+   TOKENS/VARIÁVEIS (escopo local)
+   ================================ */
+.store {
+  --bg: #121212;
+  --text: #ffffff;
+  --muted: #bdbdbd;
+  --surface: #1e1e1e;
+  --border: #2a2a2a;
+  --brand: #003cff;
+  --brand-hover: #1f5bff;
+  --radius: 14px;
+  --gap-page: 32px;
+  --gap-grid: 24px;
+  --max-w: 1200px;
 
-    .content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 40px;
-        padding: 40px;
-    }
+  /* Base container */
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  padding: 40px 20px;
+  display: block; /* evita heranças estranhas de display:flex do pai */
+  box-sizing: border-box;
+}
 
-    .title {
-        color: #111;
-        font-size: 40px;
-    }
+/* Resets leves dentro do escopo */
+.store *, .store *::before, .store *::after { box-sizing: border-box; }
+.store img { display: block; max-width: 100%; height: auto; }
 
-    .btn {
-        background-color: transparent;
-        border: none;
-        font-weight: bold;
-        font-size: 1rem;
-        color: #333;
-        letter-spacing: 2px;
-        cursor: pointer;
-        transition: all .5s;
-    }
+/* ================================
+   HEADER
+   ================================ */
+.store__header {
+  margin: 0 auto var(--gap-page);
+  max-width: var(--max-w);
+  text-align: center;
+}
 
-    .btn:hover {
-        font-size: 1.1rem;
-    }
+.store__title {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  letter-spacing: 1px;
+  margin: 0 0 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
 
-    .card-game {
-        width: 400px;
-        cursor: pointer;
-        transition: all .5s;
-    }
+/* Busca */
+.store__search {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
 
-    .card-game .game-img {
-        width: 400px;
-        height: 250px;
-        border-radius: 10px;
-        object-fit: cover;
-        box-shadow: -2px 2px 3px rgba(0,0,0,.3);
-        transition: all .5s;
-        cursor: pointer;
-    }
+.store__searchInput {
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  padding: 12px 14px;
+  font-weight: 600;
+  outline: none;
+}
 
-    .card-game .game-img:hover {
-        opacity: .9;
-        transform: scale(1.01);
-    }
+.store__searchInput::placeholder { color: var(--muted); }
 
-    .card-game h1 {
-        font-size: 1.3rem;
-        text-transform: capitalize;
-        margin: 20px 4px 10px;
-        color: #242424;
-        letter-spacing: 2px;
-        font-weight: bold;
-    }
+.store__searchBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border: 0;
+  background: var(--brand);
+  cursor: pointer;
+}
 
-    .card-game p {
-        color: #363636;
-        margin-left: 6px;
-    }
+.store__searchBtn img {
+  width: 20px;
+  filter: brightness(0) invert(1);
+  transition: transform .2s ease;
+}
 
-    .card-game button {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        border: none;
-        padding: 11px;
-        width: 140px;
-        margin: 20px 5px 40px;
-        border-radius: 10px;
-        background-color: #2273cf;
-        box-shadow: -2px 2px 3px rgba(0,0,0,.3);
-        transition: all .5s;
-        cursor: pointer;
-    }
+.store__searchBtn:hover img,
+.store__searchBtn:focus-visible img {
+  transform: scale(1.1);
+}
 
-    .card-game button p {
-        color: white;
-        font-size: 1.2rem;
-    }
+.store__searchInput:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px; /* dentro do container */
+}
 
-    .card-game button img {
-        width: 20px;
-        height: 20px;
-        margin-bottom: 2px;
-    }
+/* ================================
+   LISTA DE JOGOS
+   ================================ */
+.games {
+  margin: 0 auto;
+  max-width: var(--max-w);
+}
 
-    .card-game button:hover {
-        opacity: .8;
-    }
+.games__title {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  text-align: center;
+  margin: 0 0 16px;
+  color: var(--text);
+}
 
-    .card-game:hover {
-        transform: scale(1.008);
-    }
+.games__empty {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 24px;
+}
 
-    .find {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        max-width: 1030px;
-    }
+/* Grid responsivo e estável */
+.games__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--gap-grid);
+}
 
-    .find input {
-        width: 100%;
-        height: 40px;
-        border: none;
-        padding: 10px;
-        background-color: #ffffff;
-        color: #111;
-        border: 2px solid #ccc;
-        outline: none;
-        border-radius: 10px 0 0 10px;
-        box-shadow: -1px 1px 2px rgba(0,0,0,.2);
-        font-weight: bold;
-    }
+/* ================================
+   CARD DO JOGO
+   ================================ */
+.card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .find button {
-        border: none;
-        height: 40px;
-        width: 50px;
-        background-color: #2273cf;
-        color: #fff;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-    }
+.card:hover {
+  transform: scale(1.02);
+}
 
-    .find button img {
-        width: 20px;
-        transition: all .3s;
-    }
+/* Imagem de fundo */
+.card__bg {
+  width: 100%;
+  aspect-ratio: 9/14;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
 
-    .find button:hover {
-        opacity: .9;
-    }
+/* Overlay escuro para texto */
+.card__overlay {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
 
-    .find button:hover img {
-        width: 23px;
-    }
+/* Hover sutil no overlay */
+.card:hover .card__overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+}
 
-    /* Estilos para dispositivos móveis */
-    @media (max-width: 768px) {
-        .title {
-            font-size: 30px;
-        }
+/* Título e gênero */
+.card__meta {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ddd;
+}
 
-        .btn {
-            font-size: 0.9rem;
-        }
+.card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
 
-        .card-game {
-            width: 90%;
-            max-width: 350px;
-        }
+/* Botão sofisticado com gradiente e efeito elegante */
+.btn {
+  display: inline-block;
+  text-align: center;
+  padding: 12px 0;
+  background: linear-gradient(135deg, #003cff, #1f5bff);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 
-        .card-game .game-img {
-            width: 100%;
-            height: 200px;
-        }
+/* Efeito de brilho animado */
+.btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg) translateX(-100%);
+  transition: transform 0.5s ease;
+}
 
-        .card-game h1 {
-            font-size: 1.1rem;
-            margin: 15px 4px 8px;
-        }
+.btn:hover::after {
+  transform: rotate(45deg) translateX(100%);
+}
 
-        .card-game button {
-            width: 120px;
-            padding: 9px;
-            margin: 15px 5px 30px;
-        }
+/* Hover elegante */
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+}
 
-        .card-game button p {
-            font-size: 1.1rem;
-        }
+/* Clique */
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
 
-        .find {
-            max-width: 100%;
-            padding: 0 10px;
-        }
+/* Responsividade */
+@media (max-width: 480px) {
+  .card__title { font-size: 1rem; }
+  .btn { font-size: 0.9rem; padding: 8px 0; }
+}
+/* Responsividade */
+@media (max-width: 768px) {
+  .card__title {
+    font-size: 1.05rem;
+  }
+}
 
-        .find input {
-            height: 35px;
-            font-size: 0.9rem;
-            border-radius: 10px 0 0 10px;
-        }
+@media (max-width: 480px) {
+  .card__body {
+    padding: 10px 12px;
+  }
 
-        .find button {
-            height: 35px;
-            width: 45px;
-        }
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+}
 
-        .find button img {
-            width: 18px;
-        }
-    }
+/* ================================
+   RESPONSIVIDADE
+   ================================ */
+@media (max-width: 768px) {
+  .store { --gap-grid: 16px; }
+  .card__title { font-size: 1.05rem; }
+}
 
-    /* Estilos para telas muito pequenas */
-    @media (max-width: 480px) {
-        .title {
-            font-size: 24px;
-        }
-
-        .btn {
-            font-size: 0.85rem;
-        }
-
-        .card-game {
-            max-width: 90%;
-        }
-
-        .card-game .game-img {
-            height: 150px;
-        }
-
-        .card-game h1 {
-            font-size: 1rem;
-            margin: 10px 4px 6px;
-        }
-
-        .card-game button {
-            width: 110px;
-            padding: 8px;
-            margin: 10px 5px 25px;
-        }
-
-        .card-game button p {
-            font-size: 1rem;
-        }
-
-        .find input {
-            height: 30px;
-            font-size: 0.85rem;
-        }
-
-        .find button {
-            height: 30px;
-            width: 40px;
-        }
-
-        .find button img {
-            width: 16px;
-        }
-    }
+@media (max-width: 420px) {
+  .games__grid { grid-template-columns: 1fr; }
+  .card__media { aspect-ratio: 16 / 10; }
+}
 </style>

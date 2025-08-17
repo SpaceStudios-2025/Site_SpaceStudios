@@ -1,184 +1,226 @@
 <template>
-    <div class="escopo">
-        <h1 class="title">Contato</h1>
-        <h4 class="subtitle">Fale Conosco</h4>
+  <!-- Seção principal de contato -->
+  <section class="escopo" id="contato">
+    <!-- Cabeçalho -->
+    <header>
+      <h1 class="title">Contato</h1>
+      <h4 class="subtitle">Fale Conosco</h4>
+    </header>
 
-        <div class="email-container">
-            <p class="email-title">Email da Space Studios, entre em contato com sabedoria</p>
-            <p class="email"><a href="">spaceStudios@gmail.com</a></p>
-        </div>
+    <!-- Cards de informações -->
+    <section class="info-cards">
+      <article class="card">
+        <h5>Email</h5>
+        <a href="mailto:spacestudios@gmail.com">spacestudios@gmail.com</a>
+      </article>
+      <article class="card">
+        <h5>Telefone</h5>
+        <p>+55 15 99999-9999</p>
+      </article>
+      <article class="card">
+        <h5>Itch.io</h5>
+        <p>space-studios-oficial.itch.io/</p>
+      </article>
+    </section>
 
-        <div class="redes">
-            <div class="container-redes">
-                <a href=""><img src="@/assets/img/Icones/facebook.png" alt=""></a>
-                <a href=""><img src="@/assets/img/Icones/instagram.png" alt=""></a>
-                <a href=""><img src="@/assets/img/Icones/x.png" alt=""></a>
-                <a href=""><img src="@/assets/img/Icones/youtube.png" alt=""></a>
-            </div>
-        </div>
-    </div>
+    <!-- Formulário de contato -->
+    <form class="contact-form">
+      <input type="text" placeholder="Seu Nome" required />
+      <input type="email" placeholder="Seu Email" required />
+      <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
+      <button type="submit">Enviar Mensagem</button>
+    </form>
+
+    <!-- Redes sociais -->
+    <footer class="redes">
+      <h4 class="redes-title">Nossas Redes</h4>
+      <nav class="container-redes" aria-label="Redes sociais">
+        <a href="#" aria-label="Facebook" class="btn-social">
+          <img src="@/assets/img/Icones/facebook.png" alt="Facebook" />
+        </a>
+        <a href="#" aria-label="Instagram" class="btn-social">
+          <img src="@/assets/img/Icones/instagram.png" alt="Instagram" />
+        </a>
+        <a href="#" aria-label="X (Twitter)" class="btn-social">
+          <img src="@/assets/img/Icones/x.png" alt="X (Twitter)" />
+        </a>
+        <a href="#" aria-label="YouTube" class="btn-social">
+          <img src="@/assets/img/Icones/youtube.png" alt="YouTube" />
+        </a>
+      </nav>
+    </footer>
+  </section>
 </template>
+
 <script>
 export default {
-    
-}
+  name: "ContatoPage",
+};
 </script>
+
 <style scoped>
-    .escopo {
-        width: 100%;
-        height: 100vh;
-        z-index: -3;
-        background-color: #fff;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        color: #222;
-        padding: 30px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
+/* ===== Estrutura principal ===== */
+.escopo {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff, #e0ebff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #222;
+  padding: 40px 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .escopo .title {
-        font-size: 2rem;
-    }
+/* ===== Títulos ===== */
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+}
 
-    .email-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
 
-        & .email-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #555;
-            letter-spacing: 1px;
-        }
+/* ===== Cards de informações ===== */
+.info-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 40px;
+}
 
-        & .email {
-            font-size: 4rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+.card {
+  background: #ffffffcc;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-            & a {
-                color: #2273cf;
-                text-decoration: none;
-                transition: all .5s;
-            }
+  cursor: pointer;
+}
 
-            & a:hover {
-                font-size: 4.1rem;
-                opacity: .8;
-            }
-        }
-    }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
 
-    .redes {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        margin-top: auto;
+.card h5 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #2563eb;
+}
 
-        & .container-redes {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: nowrap;
-            gap: 20px;
-            margin: 40px;
+.card a, .card p {
+  font-size: 0.9rem;
+  color: #333;
+  text-decoration: none;
+}
 
-            & img {
-                width: 80px;
-                filter: drop-shadow(-2px 2px 3px rgba(0, 0, 0, .3));
-                transition: all .2s ease-in-out;
-            }
+/* ===== Formulário ===== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 50px;
+}
 
-            & img:hover {
-                transform: scale(1.1);
-                opacity: .8;
-            }
-        }
-    }
+.contact-form input,
+.contact-form textarea {
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
 
-    /* Media Queries para dispositivos móveis */
-    @media (max-width: 768px) {
-        .escopo .title {
-            font-size: 1.5rem; /* Reduz o tamanho da fonte */
-            height: auto;
-        }
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+}
 
-        .email-container {
+.contact-form button {
+  padding: 15px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-        & .email-title {
-            font-size: .8rem;
-        }
+.contact-form button:hover {
+  background: #1e40af;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+}
 
-        & .email {
-            font-size:2rem;
- 
-            & a:hover {
-                font-size: 2.2rem;
-            }
-        }
-    }
+/* ===== Redes sociais ===== */
+.redes-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
 
+.container-redes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
 
-        .redes .container-redes {
-            margin: 20px; /* Reduz a margem */
-            gap: 10px; /* Reduz o espaço entre os ícones */
-        }
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-        .redes .container-redes img {
-            width: 60px; /* Reduz o tamanho dos ícones */
-        }
-    }
+.btn-social img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
 
-    @media (max-width: 480px) {
-        .escopo .title {
-            font-size: 1.2rem; /* Reduz ainda mais o tamanho da fonte */
-            height: auto;
-        }
+.btn-social:hover {
+  transform: scale(1.15);
+  background: #afc8ff;
+}
 
-        .email-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+  .title { font-size: 2.5rem; }
+  .subtitle { font-size: 1.1rem; }
+  .card { width: 180px; }
+  .contact-form { max-width: 400px; }
+  .btn-social img { width: 45px; height: 45px; }
+}
 
-        & .email-title {
-            font-size: .6rem;
-            font-weight: bold;
-            color: #555;
-            letter-spacing: 1px;
-        }
-
-        & .email {
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-
-            & a {
-                color: #2273cf;
-                text-decoration: none;
-                transition: all .5s;
-            }
-
-            & a:hover {
-                font-size: 1.1rem;
-                opacity: .8;
-            }
-        }
-    }
-
-
-        .redes .container-redes {
-            margin: 10px; /* Reduz a margem */
-            gap: 5px; /* Reduz o espaço entre os ícones */
-        }
-
-        .redes .container-redes img {
-            width: 50px; /* Reduz o tamanho dos ícones */
-        }
-    }
+@media (max-width: 480px) {
+  .title { font-size: 2rem; }
+  .subtitle { font-size: 1rem; }
+  .info-cards { flex-direction: column; gap: 15px; }
+  .card { width: 100%; }
+  .contact-form { max-width: 100%; }
+  .btn-social img { width: 40px; height: 40px; }
+}
 </style>

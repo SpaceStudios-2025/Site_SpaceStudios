@@ -16,7 +16,6 @@
                     <textarea placeholder="Insira a descricão..." v-model="news.description"></textarea>
                 </label>
 
-
                 <button type="submit">Criar Noticia</button>
             </form>
         </div>

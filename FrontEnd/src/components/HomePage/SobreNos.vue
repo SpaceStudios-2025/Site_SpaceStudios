@@ -1,167 +1,253 @@
 <template>
-    <div class="scope">
-        <div class="card">
-        <h4>Nossa História</h4>
-        <h2>🎮 SPACE STUDIOS: Da Ideia ao Desenvolvimento – Uma Nova Geração de Jogos 🌵</h2>
-        <p>Fundada por uma equipe jovem e apaixonada, a SPACE STUDIOS nasceu em 2022 com o sonho de transformar ideias em experiências únicas.
-        Nosso primeiro jogo, Terrius, foi um infinite runner cheio de ação. 
-        Em 2024, demos um grande passo ao oficializar o estúdio, com foco em jogos indie, criativos e com identidade própria.
-        Nosso projeto mais ambicioso é "Sob o Sol do Sertão", um game que celebra a cultura nordestina, com inspirações em títulos como Red Dead Redemption. Para nós, jogos são uma forma de contar histórias e valorizar nossas raízes.</p>
-        <button @click="jogos()">Jogos</button>
-        </div>
-        <div class="card-estiloso">
-        <img src="/src/assets/img/imgSobre.png" alt="Imagem Top" />
-        </div>
-    </div>
+  <!-- Seção de história da empresa -->
+  <section class="scope">
+    <!-- Texto principal -->
+    <article class="card">
+      <h4 class="section-label">Nossa História</h4>
+
+      <!-- Título com logo da Space Studios -->
+      <h2 class="section-title">
+        SPACE STUDIOS <br />
+        Da Ideia ao Desenvolvimento – Uma Nova Geração de Jogos
+      </h2>
+
+      <!-- Texto da história -->
+      <p>
+        Nascida em <strong class="highlight">2022</strong>, a <strong class="highlight">SPACE STUDIOS</strong> surgiu de uma
+        equipe jovem e apaixonada por criar mundos digitais.  
+        Nosso primeiro projeto, <em>Terrius</em>, foi um
+        <span class="highlight">infinite runner</span> cheio de ação que marcou o início da
+        nossa jornada.  
+        Em <strong class="highlight">2024</strong>, oficializamos o estúdio com a missão de
+        desenvolver jogos <strong class="highlight">indie</strong>, criativos e com uma
+        identidade própria.  
+        Hoje, trabalhamos em <em class="highlight">"Sob o Sol do Sertão"</em>, um jogo que celebra a
+        cultura nordestina e traz uma experiência única inspirada em títulos como
+        Red Dead Redemption.  
+        Para nós, cada jogo é uma forma de contar histórias e valorizar nossas raízes.
+      </p>
+
+      <!-- Botão de ação -->
+      <button @click="jogos()">Conheça nossos Jogos</button>
+    </article>
+
+    <!-- Imagem ilustrativa lateral -->
+    <aside class="card-estiloso">
+      <div class="image-wrapper">
+        <img src="/src/assets/img/Games/programando.png" alt="Equipe Space Studios desenvolvendo jogos" />
+      </div>
+    </aside>
+  </section>
 </template>
+
 <script>
 export default {
-  methods:{
-        jogos(){
-            window.location = "/jogos";
-        }
-    }
-}
+  methods: {
+    jogos() {
+      window.location = "/jogos";
+    },
+  },
+};
 </script>
+
 <style scoped>
-    .scope {
-        background-color: white;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-        padding: 0 200px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        overflow: hidden; /* evita scroll do animation */
-    }
+/* --- Seção principal --- */
+.scope {
+  background: #fff;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: 80px 150px;
+  font-family: 'Montserrat', sans-serif;
+}
 
-    .card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 10px;
-        max-width: 600px;
-        width: 100%;
-        transform: translateX(-100px);
-    }
+/* --- Texto (lado esquerdo) --- */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  max-width: 650px;
+  width: 100%;
+  border-left: 6px solid #1e40af; /* detalhe lateral gamer */
+  padding-left: 25px;
+}
 
-    .card-estiloso {
-        width: 400px;
-        height: 400px;
-        overflow: hidden;
-        transform: translateX(100px);
-    }
+.section-label {
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
 
-    .card-estiloso img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        clip-path: ellipse(60% 50% at 50% 50%);
-        border-radius: 30px;
-        position: relative;
-        z-index: 2;
-        cursor: pointer;
-        transition: all .5s;
-    }
+/* --- Título com logo --- */
+.section-title {
+  font-weight: 900;
+  color: #222;
+  letter-spacing: -1px;
+  font-size: 2rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    .card-estiloso img:hover {
-        transform: scale(1.01);
-        filter: drop-shadow(-1px 1px 2px rgba(0, 0, 0, .3));
-        opacity: .9;
-    }
+.logo-title {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(700%) hue-rotate(200deg) brightness(95%) contrast(90%);
+}
 
-    /* Estilização dos textos */
-    .card h4 {
-        color: #777;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-    }
+/* --- Parágrafo da história --- */
+.card p {
+  color: #444;
+  line-height: 1.8;
+  font-size: 1rem;
+}
 
-    .card h2 {
-        font-weight: 900;
-        color: #444;
-        letter-spacing: -1px;
-        font-size: 1.8rem;
-        line-height: 37px;
-        margin-bottom: 10px;
-    }
+.highlight {
+  color: #2563eb;
+  font-weight: 600;
+}
 
-    .card p {
-        color: #555;
-        margin: 0 5px;
-        line-height: 30px;
-        font-family: Montserrat;
-    }
+/* --- Botão de ação --- */
+.card button {
+  background: linear-gradient(45deg, #1e3a8a, #2563eb);
+  border: none;
+  height: 50px;
+  width: 230px;
+  margin: 20px 0;
+  border-radius: 10px;
+  color: white;
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, .25);
+  cursor: pointer;
+  transition: all .4s ease;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
 
-    .card button {
-        background-image: linear-gradient(45deg, #0a468b, #2273cf);
-        border: none;
-        height: 50px;
-        width: 200px;
-        margin: 20px 0;
-        border-radius: 2px;
-        color: white;
-        box-shadow: -1px 1px 2px 1px rgba(0, 0, 0, .4);
-        cursor: pointer;
-        transition: all .5s;
-        font-weight: 700;
-        font-family: Quicksand;
-    }
+.card button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transition: left 0.4s ease;
+}
 
-    .card button:hover {
-        width: 250px;
-        border-radius: 5px;
-    }
+.card button:hover::after {
+  left: 100%;
+}
 
-    /* Media Queries para dispositivos móveis */
-    @media (max-width: 768px) {
-        .scope {
-            flex-direction: column; /* Muda a direção para coluna */
-            padding: 20px 20px; /* Reduz o padding */
-            gap: 20px; /* Reduz o gap */
-            height: auto;
-        }
+.card button:hover {
+  width: 250px;
+  background: linear-gradient(45deg, #0a468b, #2273cf);
+  box-shadow: -2px 4px 15px rgba(37, 99, 235, 0.5);
+  transform: scale(1.05);
+}
 
-        .card {
-            max-width: 90%; /* Permite que o cartão ocupe toda a largura */
-            transform: translateX(0); /* Remove a animação de entrada */
+.card button:active {
+  transform: scale(0.95);
+}
 
-            font-size: .9rem;
-        }
+/* --- Imagem ilustrativa (lado direito) --- */
+.card-estiloso {
+  width: 420px;
+  height: 420px;
+  position: relative;
+}
 
-        .card-estiloso {
-            display: none;
-            width: 100%; /* Ajusta a largura da imagem */
-            height: auto; /* Permite que a altura se ajuste automaticamente */
-            transform: translateX(0); /* Remove a animação de entrada */
-        }
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: pointer;
 
-        .card h2 {
-            font-size: 1.5rem; /* Reduz o tamanho da fonte */
-        }
+  border-radius: 50%;
+  transition: transform 0.6s ease;
+}
 
-        .card button {
-            width: 100%; /* Botão ocupa toda a largura */
-            display: none;
-        }
-    }
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
 
-    @media (max-width: 480px) {
-        .card h2 {
-            font-size: 1.2rem; /* Reduz ainda mais o tamanho da fonte */
-        }
+/* Overlay interativo */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(0, 0, 0, 0.4));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  border-radius: 30px;
+}
 
-        .card p {
-            line-height: 24px; /* Ajusta a altura da linha */
-        }
+.image-wrapper:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.05);
+}
 
-        .card button {
-            height: 40px;
-            font-size: 1rem;
-            margin: 15px 0;
-            width: 100%;
-        }
-    }
+.image-wrapper:hover .overlay {
+  opacity: 1;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+  .scope {
+    flex-direction: column;
+    padding: 50px 30px;
+    text-align: center;
+  }
+
+  .card {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .section-title {
+    justify-content: center;
+  }
+
+  .card-estiloso {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+
+  .card button {
+    margin: 25px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .card button {
+    width: 100%;
+  }
+}
 </style>

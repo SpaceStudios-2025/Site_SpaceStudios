@@ -1,139 +1,163 @@
 <template>
-    <div>
-        <div class="video-background">
-            <video autoplay muted loop playsinline>
-                <source src="/src/assets/videos/bg1.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="home-container">
-            <p class="p1" ref="text1"></p>
-            <p class="p2" ref="text2"></p>
-            <p class="p3" ref="text3"></p>
-        </div>
-    </div>
+  <!-- Container principal da página -->
+  <div>
+    <!-- Fundo de vídeo -->
+    <section class="video-background" aria-hidden="true">
+      <video autoplay muted loop playsinline>
+        <source src="/src/assets/videos/bg2.mp4" type="video/mp4">
+      </video>
+      <!-- Overlay de pixels para efeito visual -->
+      <div class="pixel-overlay"></div>
+    </section>
+
+    <!-- Conteúdo principal da home -->
+    <main class="home-container">
+      <!-- Título principal -->
+      <h1 class="title-home">Universo</h1>
+
+      <!-- Subtítulo -->
+      <h2 class="subtitle-home">Em expansão</h2>
+
+      <!-- Linha de separação decorativa -->
+      <hr class="trail-home">
+
+      <!-- Parágrafo introdutório -->
+      <p class="text-home">
+        Bem-vindo à Space Studios <br>
+        Transformamos ideias em experiências digitais únicas. Criamos jogos inovadores, histórias envolventes e ferramentas digitais de qualidade, unindo criatividade e tecnologia em cada projeto. Explore o universo da Space Studios — onde cada ideia tem espaço para brilhar.
+      </p>
+
+      <!-- Botão de ação -->
+      <button class="button-home">Descubra Agora</button>
+    </main>
+  </div>
 </template>
-<script>
-export default {
-    mounted() {
-    const texts = [
-      "The future of",
-      "gaming",
-      "is now"
-    ];
 
-    const refs = [
-      this.$refs.text1,
-      this.$refs.text2,
-      this.$refs.text3
-    ];
+<style scoped>
+/* ==========================================
+   FUNDO DE VÍDEO
+   ========================================== */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110vh;
+  overflow: hidden;
+  z-index: -1;
+  filter: blur(4px); /* desfoca o vídeo */
+}
 
-    let currentText = 0;
-    let currentChar = 0;
+/* Overlay de pixels sobre o vídeo */
+.pixel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* permite cliques através do overlay */
+  background-image: url(../../assets/img/ledScreen.jpg);
+  opacity: 0.2;
+  z-index: 0;
+}
 
-    const typeWriter = () => {
-      if (currentText < texts.length) {
-        let currentRef = refs[currentText];
+/* ==========================================
+   CONTEÚDO PRINCIPAL
+   ========================================== */
+.home-container {
+  height: calc(100vh - 80px);
+  width: max-content;
 
-        if (currentChar === 0) {
-          currentRef.innerHTML = ""; // limpa certinho
-        }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
-        let char = texts[currentText][currentChar];
-        if (char === " ") {
-          char = "&nbsp;"; // espaço visível
-        }
-        currentRef.innerHTML += char;
-        currentChar++;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  line-height: 100px;
 
-        if (currentChar < texts[currentText].length) {
-          setTimeout(typeWriter, 100); // velocidade da letra
-        } else {
-          currentText++;
-          currentChar = 0;
-          setTimeout(typeWriter, 400); // pausa entre os textos
-        }
-      }
-    };
+  margin-top: 55px;
+}
 
-    typeWriter();
+/* Título principal */
+.title-home {
+  font-size: 130px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff; /* contorno branco */
+  padding: 0 80px;
+}
+
+/* Subtítulo */
+.subtitle-home {
+  font-size: 120px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #ccc;
+  padding: 0 80px;
+}
+
+/* Linha decorativa */
+.trail-home {
+  margin: 30px 0;
+  border: 1px solid #fff;
+  filter: blur(1px);
+}
+
+/* Texto descritivo */
+.text-home {
+  padding: 0 85px;
+  font-size: 14px;
+  width: 800px;
+  line-height: 20px;
+  color: #ddd;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Botão principal */
+.button-home {
+  margin: 40px 80px;
+  width: 180px;
+  height: 43px;
+
+  border: 3px solid #fff;
+  border-radius: 20px;
+
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  font-size: 14px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-home:hover {
+  transform: scale(1.05);
+  box-shadow: -1px 1px 2px rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
+  text-shadow: 1px 1px 1px #000;
+}
+
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVO)
+   ========================================== */
+@media (max-width: 768px) {
+  .home-container {
+    font-size: 4rem;
+    line-height: 6rem;
   }
 }
-</script>
-<style scoped>
-    .video-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-        filter: blur(4px);
-    }
 
-    .home-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        font-size: 6rem;
-        letter-spacing: 6px;
-        line-height: 10rem;
-        height: calc(100vh - 80px);
-        width: min-content;
-        margin: auto;
-        font-family: Montserrat;
-    }
-
-    .p1 {
-        margin-right: auto;
-    }
-
-    .p2 {
-        font-size: 2.2em;
-        letter-spacing: 10px;
-        color: white;
-        font-family: 'Cal Sans';
-    }
-
-    .p3 {
-        margin-left: auto;
-    }
-
-    @keyframes blink {
-        50% { border-color: transparent; }
-    }
-
-    /* Media Queries para dispositivos móveis */
-    @media (max-width: 768px) {
-        .home-container {
-            font-size: 4rem; /* Reduz o tamanho da fonte */
-            line-height: 6rem; /* Ajusta a altura da linha */
-        }
-
-        .p2 {
-            font-size: 2em; /* Reduz o tamanho da fonte para p2 */
-            letter-spacing: 5px; /* Ajusta o espaçamento */
-        }
-    }
-
-    @media (max-width: 480px) {
-        .home-container {
-            font-size: 3rem; /* Reduz ainda mais o tamanho da fonte */
-            line-height: 4rem; /* Ajusta a altura da linha */
-        }
-
-        .p1{
-          font-size: 1.8rem;
-        }
-
-        .p2 {
-            font-size: 2em; /* Reduz o tamanho da fonte para p2 */
-            letter-spacing: 3px; /* Ajusta o espaçamento */
-        }
-
-        .p3{
-          font-size: 1.9rem;
-        }
-    }
+@media (max-width: 480px) {
+  .home-container {
+    font-size: 3rem;
+    line-height: 4rem;
+  }
+}
 </style>
