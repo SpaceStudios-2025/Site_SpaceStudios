@@ -40,7 +40,10 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
 /* Importando imagens (Solução recomendada) */
-import CapaPedidos from "../../assets/img/capas/CapaPedidos.png";
+import CapaPedidos from "../../assets/img/capas/CapaPedidosPc.png";
+import CapaAngry from "../../assets/img/capas/CapaAngryCat.png";
+import CapaTerrius from "../../assets/img/capas/CapaTerrius.png";
+import CapaSobOSol from "../../assets/img/capas/CapaSertao.png";
 const games = [
   {
     name: "Pedidos do Além",
@@ -49,22 +52,22 @@ const games = [
     img: CapaPedidos,
   },
   {
-    name: "Galaxy Defender",
-    genre: "Ação",
-    description: "Defenda a galáxia de hordas alienígenas implacáveis.",
-    img: "CapaGalaxy",
+    name: "Angry Cat Remake",
+    genre: "Aventura",
+    description: "Um Jogo onde você é um gato com uma marreta, e você tem que descubrir novos lugares",
+    img: CapaAngry,
   },
   {
-    name: "Corrida Cósmica",
-    genre: "Corrida",
-    description: "Velocidade estelar em pistas intergalácticas.",
-    img: "CapaCorrida",
+    name: "Terrius",
+    genre: "Infinite Runner",
+    description: "Em Terrius você pode correr por vários ambientes, enfrentando chefes e passando de fases",
+    img: CapaTerrius,
   },
   {
-    name: "Dungeon Escape",
-    genre: "RPG",
-    description: "Sobreviva e fuja das masmorras cheias de perigos.",
-    img: "CapaDungeon",
+    name: "Sob O Sol do Sertão",
+    genre: "Sobrevivencia",
+    description: "Em Desenvolvimento pela Space Studios, em Breve mais Informações",
+    img: CapaSobOSol,
   },
 ];
 
@@ -73,11 +76,13 @@ let intervalId = null;
 
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % games.length;
+  clearInterval(intervalId);
 };
 
 const prevSlide = () => {
   currentIndex.value =
     (currentIndex.value - 1 + games.length) % games.length;
+  clearInterval(intervalId);
 };
 
 onMounted(() => {
@@ -109,7 +114,7 @@ onUnmounted(() => {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: bottom center;
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -129,7 +134,7 @@ onUnmounted(() => {
   position: relative;
   z-index: 2;
   padding: 50px;
-  max-width: 600px;
+  max-width: 700px;
   text-align: left;
 }
 

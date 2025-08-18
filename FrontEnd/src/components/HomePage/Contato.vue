@@ -120,7 +120,7 @@ export default {
 }
 
 .card a, .card p {
-  font-size: 0.9rem;
+  font-size: clamp(.7rem, 1vw, .9rem);
   color: #333;
   text-decoration: none;
 }

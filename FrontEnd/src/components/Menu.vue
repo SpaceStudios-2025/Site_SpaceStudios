@@ -2,7 +2,8 @@
   <main class="app">
     <!-- HEADER PRINCIPAL -->
     <header class="menu-container">
-      
+      <div class="menu-overlay" :class="{ 'active': isMenuOpen }" @click="closeMenu"></div>
+
       <!-- BOTÃO HAMBURGUER (MOBILE) -->
       <button class="hamburger" 
               @click="toggleMenu" 
@@ -82,7 +83,7 @@
             <section class="profile" v-if="isProfileOpen">
               <ul>
                 <li v-if="auth.isAuthenticated"><a href="">Conta <span class="material-symbols-outlined">manage_accounts</span></a></li>
-                <li v-if="auth.isAuthenticated && auth.isAdmin"><a href="">Dashboard <span class="material-symbols-outlined">monitoring</span></a></li>
+                <li v-if="auth.isAuthenticated && auth.isAdmin"><a href="/dashboard">Dashboard <span class="material-symbols-outlined">monitoring</span></a></li>
                 <li><a href="/sobreosjogos">Sobre os Jogos <span class="material-symbols-outlined">gamepad</span></a></li>
                 <li><a href="/privacidade">Privacidade <span class="material-symbols-outlined">lock_person</span></a></li>
                 <li><a href="/desenvolvimento">Desenvolvimento <span class="material-symbols-outlined">data_object</span></a></li>
@@ -207,7 +208,7 @@ header.menu-container {
   top: 40px;
   right: 0;
   width: 210px;
-  background: rgba(30, 30, 30, .2); /* fundo elegante */
+  background: rgba(30, 30, 30, .5); /* fundo elegante */
   backdrop-filter: blur(10px); /* blur moderno */
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* sombra sutil */
@@ -278,6 +279,7 @@ header.menu-container {
   border-radius: 40px;
   transition: all .5s;
   font-weight: 700;
+
 }
 
 /* ------------------- ANIMAÇÃO DE LOAD ------------------- */
@@ -288,7 +290,7 @@ header.menu-container.loaded {
 
 /* ------------------- LOGO ------------------- */
 header.menu-container img {
-  width: 130px;
+  width: clamp(70px, 10vw, 130px);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -296,7 +298,7 @@ header.menu-container img {
   cursor: pointer;
 }
 header.menu-container img:hover {
-  width: 150px;
+  width: clamp(130px, 11vw, 180px);
 }
 
 /* ------------------- MENU LINKS ------------------- */
@@ -304,10 +306,12 @@ header.menu-container .btn-menu,
 header.menu-container .sign {
   display: inline;
   padding: 6px 5px;
+  
+  font-size: clamp(13px, 1vw, 17px);
 }
 
 header.menu-container .btn-menu span {
-  font-size: 1rem;
+  font-size: clamp(.4rem, 1vw, 1rem);
   margin: 5px;
 
   transition: all .3s ease;
@@ -384,7 +388,7 @@ header.menu-container nav ul.menu-content-right {
 }
 .in a span {
   color: #fff;
-  font-size: 2.2rem;
+  font-size: clamp(20px, 5vw, 40px);
   margin: 0;
   transition: all .3s ease;
 }
@@ -439,74 +443,135 @@ button.hamburger.is-active span.bar:nth-child(3) {
 }
 
 /* ------------------- RESPONSIVO ------------------- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   header.menu-container {
-    flex-direction: column;
-    padding: 10px 0;
-    min-height: 60px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 20px;
     position: relative;
-    text-align: center;
   }
 
+  /* Esconde logo no mobile */
+  header.menu-container img {
+    display: none;
+  }
+
+  /* Mostra botão home no mobile */
   .btnhome {
     display: inline-block;
   }
 
+  /* BOTÃO HAMBURGUER */
   button.hamburger {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
-    align-self: flex-end;
-    margin-right: 20px;
+    z-index: 2001;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  button.hamburger span.bar {
+    height: 3px;
+    width: 26px;
+    background: #fff;
+    box-shadow: -2px 2px 3px 1px rgba(0,0,0,.5);
+    margin: 4px 0;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  button.hamburger.is-active span.bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  button.hamburger.is-active span.bar:nth-child(2) {
+    opacity: 0;
+  }
+  button.hamburger.is-active span.bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
-  header.menu-container nav {
-    width: 100%;
+  /* OVERLAY ESCURO (FUNDO AO ABRIR) */
+  .menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 2000;
+  }
+  .menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
   }
 
+  /* MENU LATERAL (LEFT OFF-CANVAS) */
   header.menu-container nav ul.menu-content-left,
   header.menu-container nav ul.menu-content-right {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
+    position: fixed;
+    top: 0;
+    left: -280px; /* escondido no início */
+    width: 260px;
+    height: 100vh;
     flex-direction: column;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.95);
-    border-radius: 0 0 10px 10px;
-    padding: 10px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 4px 0 12px rgba(0,0,0,0.4);
+    list-style: none;
+    margin: 0;
+    transition: left 0.35s ease;
+    z-index: 2002;
   }
-
   header.menu-container nav ul.menu-content-left.active,
   header.menu-container nav ul.menu-content-right.active {
-    display: flex;
+    left: 0; /* aparece */
   }
 
-  header.menu-container nav ul.menu-content-left li,
-  header.menu-container nav ul.menu-content-right li {
-    padding: 10px 20px;
-  }
-
-  header.menu-container nav ul.menu-content-left li a,
-  header.menu-container nav ul.menu-content-right li a {
-    font-size: 1.1rem;
-    width: 100%;
+  /* LINKS */
+  header.menu-container .btn-menu a,
+  header.menu-container .sign a {
     display: block;
-    padding: 10px;
-    border-radius: 10px;
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: transparent;
+    color: #ddd;
+    transition: all 0.3s ease;
+  }
+  header.menu-container .btn-menu a:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    padding-left: 20px;
   }
 
-  header.menu-container img {
-    display: none;
+  /* Remove estilos antigos */
+  header.menu-container.scrolled {
+    background: transparent;
+    backdrop-filter: blur(0px);
+    border: none;
+  }
+
+  .container-profile{
+    position: absolute;
+    right: -40px;
   }
 }
 
 @media (max-width: 480px) {
-  header.menu-container nav ul.menu-content-left li a,
-  header.menu-container nav ul.menu-content-right li a {
-    font-size: 1rem;
-    padding: 8px;
+  header.menu-container nav ul.menu-content-left,
+  header.menu-container nav ul.menu-content-right {
+    width: 220px;
   }
 }
+
+
 </style>

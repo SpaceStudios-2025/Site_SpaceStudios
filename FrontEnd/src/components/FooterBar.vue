@@ -236,9 +236,7 @@ hr {
   }
 
   .container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    display: none;
   }
 
   .espacos {

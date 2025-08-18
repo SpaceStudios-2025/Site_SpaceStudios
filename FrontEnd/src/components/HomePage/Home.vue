@@ -4,7 +4,7 @@
     <!-- Fundo de vídeo -->
     <section class="video-background" aria-hidden="true">
       <video autoplay muted loop playsinline>
-        <source src="/src/assets/videos/bg2.mp4" type="video/mp4">
+        <source src="/src/assets/videos/bg2.mp4" type="video/mp4" />
       </video>
       <!-- Overlay de pixels para efeito visual -->
       <div class="pixel-overlay"></div>
@@ -19,16 +19,19 @@
       <h2 class="subtitle-home">Em expansão</h2>
 
       <!-- Linha de separação decorativa -->
-      <hr class="trail-home">
+      <hr class="trail-home" />
 
       <!-- Parágrafo introdutório -->
       <p class="text-home">
-        Bem-vindo à Space Studios <br>
-        Transformamos ideias em experiências digitais únicas. Criamos jogos inovadores, histórias envolventes e ferramentas digitais de qualidade, unindo criatividade e tecnologia em cada projeto. Explore o universo da Space Studios — onde cada ideia tem espaço para brilhar.
+        Bem-vindo à Space Studios <br />
+        Transformamos ideias em experiências digitais únicas. Criamos jogos
+        inovadores, histórias envolventes e ferramentas digitais de qualidade,
+        unindo criatividade e tecnologia em cada projeto. Explore o universo da
+        Space Studios — onde cada ideia tem espaço para brilhar.
       </p>
 
       <!-- Botão de ação -->
-      <button class="button-home">Descubra Agora</button>
+      <a href="/#sobre"><button class="button-home">Descubra Agora</button></a>
     </main>
   </div>
 </template>
@@ -55,7 +58,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* permite cliques através do overlay */
+  pointer-events: none;
   background-image: url(../../assets/img/ledScreen.jpg);
   opacity: 0.2;
   z-index: 0;
@@ -65,69 +68,67 @@
    CONTEÚDO PRINCIPAL
    ========================================== */
 .home-container {
-  height: calc(100vh - 80px);
-  width: max-content;
-
+  min-height: calc(100vh - 80px);
   display: flex;
-  justify-content: center;
   flex-direction: column;
-
+  justify-content: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  line-height: 100px;
-
   margin-top: 55px;
+  padding: 0 2rem;
 }
 
 /* Título principal */
 .title-home {
-  font-size: 130px;
+  font-size: clamp(2.5rem, 8vw, 130px);
   text-transform: uppercase;
   font-weight: bold;
   color: transparent;
-  -webkit-text-stroke: 2px #fff; /* contorno branco */
-  padding: 0 80px;
+  -webkit-text-stroke: 2px #fff;
+  margin-bottom: 1rem;
+  text-align: left;
+
+  line-height: 40px;
 }
 
 /* Subtítulo */
 .subtitle-home {
-  font-size: 120px;
+  font-size: clamp(2rem, 7vw, 120px);
   text-transform: uppercase;
   font-weight: 600;
   color: #ccc;
-  padding: 0 80px;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
 /* Linha decorativa */
 .trail-home {
-  margin: 30px 0;
+  margin: 20px 0;
   border: 1px solid #fff;
   filter: blur(1px);
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Texto descritivo */
 .text-home {
-  padding: 0 85px;
-  font-size: 14px;
-  width: 800px;
-  line-height: 20px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  max-width: 800px;
+  line-height: 1.6rem;
   color: #ddd;
   font-weight: 600;
   letter-spacing: 1px;
+  margin-bottom: 2rem;
 }
 
 /* Botão principal */
 .button-home {
-  margin: 40px 80px;
   width: 180px;
   height: 43px;
-
   border: 3px solid #fff;
   border-radius: 20px;
-
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
   font-size: 14px;
   color: #fff;
   font-weight: 600;
@@ -143,21 +144,48 @@
   text-shadow: 1px 1px 1px #000;
 }
 
-
 /* ==========================================
    MEDIA QUERIES (RESPONSIVO)
    ========================================== */
 @media (max-width: 768px) {
   .home-container {
-    font-size: 4rem;
-    line-height: 6rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .title-home,
+  .subtitle-home {
+    text-align: center;
+    -webkit-text-stroke: 1.5px #fff;
+  }
+
+  .trail-home {
+    max-width: 300px;
+  }
+
+  .text-home {
+    width: 100%;
+    padding: 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+  }
+
+  .button-home {
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 480px) {
-  .home-container {
-    font-size: 3rem;
-    line-height: 4rem;
+  .title-home {
+    font-size: 2.2rem;
+  }
+
+  .subtitle-home {
+    font-size: 1.8rem;
+  }
+
+  .text-home {
+    font-size: 0.85rem;
   }
 }
 </style>
