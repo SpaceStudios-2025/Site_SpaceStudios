@@ -103,151 +103,145 @@
 
 .edit{
     width: 70%;
-
     position: absolute;
     top: 50%;
     left: 50%;
-
     transform: translate(-50%,-50%);
-  }
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
 
-
-  /* Global */
-  button{
+/* Global */
+button{
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: bold;
-    padding: 10px;
+    padding: 10px 15px;
     width: auto;
 
-    box-shadow: -2px 2px 3px rgba(0,0,0,.3);
+    box-shadow: -2px 2px 4px rgba(0,0,0,.6);
 
     cursor: pointer;
-    transition: all .5s;
-  }
+    transition: all .3s;
+}
 
-  button:hover{
-    transform: scale(1.008);
-    box-shadow: -2px 2px 4px 1px rgba(0,0,0,.3);
+button:hover{
+    transform: scale(1.05);
+    box-shadow: -2px 2px 6px rgba(0,0,0,.7);
+    opacity: .9;
+}
 
-    opacity: .8;
-  }
-
-  .dashboard {
+.dashboard {
     display: flex;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    background-color: #f4f7fc;
+    color: #e2e8f0;
+    background-color: #121212;
     overflow: hidden;
-
     margin-left: 220px;
     padding: 10px;
-  }
+}
 
-  .newsBox{
+.newsBox{
     width: 100%;
     height: auto;
-
     margin: 2rem;
-
-    background-color: rgba(230, 230,230, 0.3);
+    background-color: #1e1e1e;
     padding: 20px;
-
     border-radius: 12px;
-    border: 2px solid rgba(216, 216, 216,.3);
-  }
+    border: 1px solid #333;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
 
-  .titulo{
+.titulo{
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     margin-bottom: 20px;
-
-    border-bottom: 2px solid rgba(68, 68, 68,.4);
+    border-bottom: 2px solid #333;
     padding: 10px;
 
     h3{
-      font-size: 1.5rem;
+        font-size: 1.5rem;
+        color: #f1f5f9;
     }
 
     button{
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-  }
+}
 
-  .btnAdd{
+.btnAdd{
     color: #fff;
-    background-color: rgb(41, 184, 65);
-  }
+    background-color: #28a745;
+}
 
-  .newContent{
+.newContent{
     margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 100%;
     flex-direction: column;
-
     overflow-y: auto;
 
     ul{
-      width: 100%;
-      
-
-      padding: 10px 15px;
-      
+        width: 100%;
+        padding: 10px 15px;
     }
 
     ul li {
-      width: 100%;
+        width: 100%;
+        background-color: #2c2c2c;
+        border-radius: 12px;
+        border-bottom: 2px solid #444;
+        border-left: 2px solid #444;
+        padding: 10px 15px;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: #e2e8f0;
+        transition: background 0.3s;
+    }
 
-      background-color: #fff;
-      border-radius: 12px;
-      border-bottom: 2px solid rgba(68, 68, 68,.4);
-      border-left: 2px solid rgba(68, 68, 68,.4);
-      padding: 10px 15px;
-
-      list-style-type: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      margin-top: 10px;
+    ul li:hover {
+        background-color: #383838;
     }
 
     .buttons{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      button{
         display: flex;
         align-items: center;
-        justify-content: center; 
-      }
+        justify-content: center;
+        gap: 10px;
 
-      .btn_view{
-        background-color: #7c7c7c;
-        color: #fff;
-      }
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
 
-      .btn_edit{
-        background-color: rgb(48, 146, 236);
-        color: #fff;
-      }
+        .btn_view{
+            background-color: #6b7280;
+            color: #fff;
+        }
 
-      .btn_delete{
-        background-color: rgb(241, 62, 56);
-        color: #fff;
-      }
+        .btn_edit{
+            background-color: #3b82f6;
+            color: #fff;
+        }
+
+        .btn_delete{
+            background-color: #ef4444;
+            color: #fff;
+        }
     }
-  }
+}
 
 </style>

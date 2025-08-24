@@ -112,153 +112,190 @@ onMounted(() => {
 });
 </script>
 <style scoped>
+/* ----------------- GLOBAL ----------------- */
+button {
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  width: auto;
 
-  .edit{
-    width: 70%;
+  box-shadow: 0 3px 6px rgba(0,0,0,.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
+button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
 
-    transform: translate(-50%,-50%);
-  }
+/* ----------------- DASHBOARD ----------------- */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e2e2e2;
+  background-color: #1a1a1a;
 
-  /* Global */
-  button{
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px;
-    width: auto;
+  margin-left: 220px;
+  padding: 20px;
+}
 
-    box-shadow: -2px 2px 3px rgba(0,0,0,.3);
+/* ----------------- BOX ----------------- */
+.newsBox {
+  width: 100%;
+  height: auto;
 
-    cursor: pointer;
-    transition: all .5s;
-  }
+  margin: 2rem auto;
+  background: #222;
+  padding: 25px;
 
-  button:hover{
-    transform: scale(1.008);
-    box-shadow: -2px 2px 4px 1px rgba(0,0,0,.3);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,.3);
+  transition: all 0.3s ease;
+}
 
-    opacity: .8;
-  }
+/* ----------------- TÍTULO ----------------- */
+.titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  .dashboard {
-    display: flex;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    background-color: #f4f7fc;
-    overflow: hidden;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  padding-bottom: 10px;
+}
 
-    margin-left: 220px;
-    padding: 10px;
-  }
+.titulo h3 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+}
 
-  .newsBox{
-    width: 100%;
-    height: auto;
+.titulo button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    margin: 2rem;
+.btnAdd {
+  color: #fff;
+  background: linear-gradient(135deg, #28a745, #38d46d);
+}
 
-    background-color: rgba(230, 230,230, 0.3);
-    padding: 20px;
+/* ----------------- LISTA ----------------- */
+.newContent {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 
-    border-radius: 12px;
-    border: 2px solid rgba(216, 216, 216,.3);
-  }
+}
 
-  .titulo{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.newContent ul {
+  width: 100%;
+  padding: 0;
+}
 
-    margin-bottom: 20px;
+.newContent ul li {
+  width: 100%;
+  background: #2a2a2a;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 15px 20px;
 
-    border-bottom: 2px solid rgba(68, 68, 68,.4);
-    padding: 10px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    h3{
-      font-size: 1.5rem;
-    }
+  margin-top: 12px;
+  transition: all 0.3s ease;
+}
 
-    button{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+/* Efeito hover apenas nos cards */
+.newContent ul li:hover {
+  background: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,.5);
+  transform: scale(1.01);
+}
 
-  .btnAdd{
-    color: #fff;
-    background-color: rgb(41, 184, 65);
-  }
+/* ----------------- CONTEÚDO DO JOGO ----------------- */
+.newContent img {
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.4);
+}
 
-  .newContent{
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.newContent h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  margin-left: 15px;
+  flex: 1;
+}
 
-    width: 100%;
-    flex-direction: column;
+.newContent p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-right: auto;
+  margin-left: 20px;
+}
 
-    overflow-y: auto;
+/* ----------------- BOTÕES ----------------- */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    ul{
-      width: 100%;
-      
+.buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 8px 10px;
+  border-radius: 10px;
+}
 
-      padding: 10px 15px;
-      
-    }
+.btn_view {
+  background-color: #6c757d;
+  color: #fff;
+}
 
-    ul li {
-      width: 100%;
+.btn_edit {
+  background-color: #007bff;
+  color: #fff;
+}
 
-      background-color: #fff;
-      border-radius: 12px;
-      border-bottom: 2px solid rgba(68, 68, 68,.4);
-      border-left: 2px solid rgba(68, 68, 68,.4);
-      padding: 10px 15px;
+.btn_delete {
+  background-color: #e63946;
+  color: #fff;
+}
 
-      list-style-type: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+/* ----------------- MODAL DE EDIÇÃO ----------------- */
+.edit {
+  width: 70%;
+  max-width: 900px;
 
-      margin-top: 10px;
-    }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
 
-    .buttons{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+  background: #2a2a2a;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.6);
 
-      button{
-        display: flex;
-        align-items: center;
-        justify-content: center; 
-      }
+  transform: translate(-50%,-50%);
+  animation: fadeIn 0.4s ease;
+}
 
-      .btn_view{
-        background-color: #7c7c7c;
-        color: #fff;
-      }
-
-      .btn_edit{
-        background-color: rgb(48, 146, 236);
-        color: #fff;
-      }
-
-      .btn_delete{
-        background-color: rgb(241, 62, 56);
-        color: #fff;
-      }
-    }
-  }
-
+@keyframes fadeIn {
+  from {opacity: 0; transform: translate(-50%, -45%);}
+  to {opacity: 1; transform: translate(-50%, -50%);}
+}
 </style>
+

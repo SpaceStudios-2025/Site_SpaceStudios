@@ -107,128 +107,121 @@ async function addGame() {
 }
 </script>
 <style scoped>
-    /* Global */
-    button{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        border-radius: 8px;
-        box-shadow: -2px 2px 3px rgba(0,0,0,.2);
-        padding: 5px;
+/* Global */
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
 
-        cursor: pointer;
-        transition: all .5s;
-    }
+button:hover {
+    opacity: 0.95;
+    transform: scale(1.05);
+}
 
-    button:hover{
-        opacity: .9;
-        transform: scale(1.008);
-    }
+/* Container */
+.container {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    border-radius: 14px;
+    padding: 25px;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e2e8f0;
+}
 
-    .container{
-        background-color: rgba(255,255,255,.9);
-        box-shadow: -2px 2px 4px rgba(0,0,0,.2);
-        border-radius: 10px;
+/* Title */
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
 
-        padding: 20px;
+.title h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #f1f5f9;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
 
-        width: 70%;
+.title button {
+    background-color: #ef4444;
+    color: #fff;
+    padding: 8px 14px;
+}
 
-        position: absolute;
-        top: 50%;
-        left: 58%;
+/* Form */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
 
-        transform: translate(-50%,-50%);
-    }
+.formulario label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: #cbd5e1;
+}
 
-    .title{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+.formulario input,
+.formulario textarea {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: #f1f5f9;
+    padding: 10px;
+    font-size: 1.1rem;
+    box-shadow: inset -1px 1px 3px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
 
-        h1{
-            font-size: 1.5rem;
-            letter-spacing: 1px;
+.formulario input::placeholder,
+.formulario textarea::placeholder {
+    color: #888;
+}
 
-            font-weight: bold;
+.formulario input:focus,
+.formulario textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 8px rgba(59,130,246,0.6);
+}
 
-            color: #555;
-        }
+.formulario textarea {
+    height: 120px;
+    resize: none;
+}
 
-        button{
-            background-color: rgb(241, 62, 56);
-            color: #fff;
-        }
+.formulario button {
+    background-color: #3b82f6;
+    padding: 12px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: #fff;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
 
-        margin-bottom: 20px;
-    }
-
-    .formulario{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-
-        gap: 20px;
-
-        label{
-            display: flex;
-            align-items: start;
-            justify-content: center;
-            flex-direction: column;
-
-            width: 100%;
-
-            font-size: 1rem;
-            letter-spacing: 2px;
-            color: #222;
-        }
-
-        input{
-            width: 100%;
-            height: 40px;
-        }
-
-        input::placeholder{
-            color: #ccc;
-            letter-spacing: 2px;
-            font-size: 1rem;
-        }
-
-        textarea{
-            width: 100%;
-            height: 100px;
-
-            resize:none;
-        }
-
-        textarea::placeholder{
-            color: #ccc;
-            font-size: 1.1rem;
-        }
-
-        input,textarea{
-            border-radius: 12px;
-            border: 1px solid #ccc;
-
-            box-shadow: -1px 1px 2px rgba(0,0,0,.2);
-
-            padding: 10px;
-
-            font-size: 1.2rem;
-        }
-
-        button{
-            background-color: rgb(77, 180, 240);
-            padding: 10px;
-            width: 100%;
-
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-
-            color: #fff;
-        }
-    }
+.formulario button:hover {
+    background-color: #2563eb;
+}
 </style>

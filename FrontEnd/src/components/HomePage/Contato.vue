@@ -10,12 +10,8 @@
     <!-- Cards de informações -->
     <section class="info-cards">
       <article class="card">
-        <h5>Email</h5>
-        <a href="mailto:spacestudios@gmail.com">spacestudios@gmail.com</a>
-      </article>
-      <article class="card">
-        <h5>Telefone</h5>
-        <p>+55 15 99999-9999</p>
+        <h5>Instagram</h5>
+        <p>@space._.studios01</p>
       </article>
       <article class="card">
         <h5>Itch.io</h5>

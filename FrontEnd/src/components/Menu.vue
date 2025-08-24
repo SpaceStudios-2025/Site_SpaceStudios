@@ -82,14 +82,12 @@
           <div class="container-profile">
             <section class="profile" v-if="isProfileOpen">
               <ul>
-                <li v-if="auth.isAuthenticated"><a href="">Conta <span class="material-symbols-outlined">manage_accounts</span></a></li>
+                <li v-if="auth.isAuthenticated"><a href=""> "Em Breve" <span class="material-symbols-outlined">manage_accounts</span></a></li>
                 <li v-if="auth.isAuthenticated && auth.isAdmin"><a href="/dashboard">Dashboard <span class="material-symbols-outlined">monitoring</span></a></li>
                 <li><a href="/sobreosjogos">Sobre os Jogos <span class="material-symbols-outlined">gamepad</span></a></li>
                 <li><a href="/privacidade">Privacidade <span class="material-symbols-outlined">lock_person</span></a></li>
                 <li><a href="/desenvolvimento">Desenvolvimento <span class="material-symbols-outlined">data_object</span></a></li>
-                <li><a href="">Mobile <span class="material-symbols-outlined">mobile_code</span></a></li>
-                <li><a href="">Novidades <span class="material-symbols-outlined">notifications_active</span></a></li>
-
+                
                 <li v-if="auth.isAuthenticated" v-on:click="logout"><a href="">Sair <span class="material-symbols-outlined">logout</span></a></li>
                 <li v-else><a href="/login">Entrar <span class="material-symbols-outlined">login</span></a></li>
                 
