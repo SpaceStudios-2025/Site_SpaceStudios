@@ -46,6 +46,10 @@
         }
     }
 
+    http.post('https://spacestudios.com.br/api/register', { name: 'teste' })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+
 </script>
 <style scoped>
     .container{
@@ -55,6 +59,7 @@
 
         flex-direction: column;
 
+        width: 100%;
         height: 100vh;
 
         color: #444;

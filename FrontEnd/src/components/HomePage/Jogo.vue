@@ -13,7 +13,7 @@
             <h2 class="genre">{{ games[currentIndex].genre }}</h2>
             <h1 class="title">{{ games[currentIndex].name }}</h1>
             <p class="description">{{ games[currentIndex].description }}</p>
-            <button class="btn">Jogar Agora</button>
+            <button class="btn">{{ games[currentIndex].button }}</button>
           </div>
         </div>
       </transition>
@@ -49,24 +49,28 @@ const games = [
     name: "Pedidos do Além",
     genre: "Terror",
     description: "Um jogo de terror psicológico cheio de mistérios.",
+    button : "Em Finalização",
     img: CapaPedidos,
   },
   {
     name: "Angry Cat Remake",
     genre: "Aventura",
     description: "Um Jogo onde você é um gato com uma marreta, e você tem que descubrir novos lugares",
+    button : "Em Desenvolvimento",
     img: CapaAngry,
   },
   {
     name: "Terrius",
     genre: "Infinite Runner",
     description: "Em Terrius você pode correr por vários ambientes, enfrentando chefes e passando de fases",
+    button : "Em Desenvolvimento",
     img: CapaTerrius,
   },
   {
     name: "Sob O Sol do Sertão",
     genre: "Sobrevivencia",
     description: "Em Desenvolvimento pela Space Studios, em Breve mais Informações",
+    button : "Em Desenvolvimento",
     img: CapaSobOSol,
   },
 ];
@@ -162,6 +166,7 @@ onUnmounted(() => {
   border: none;
   padding: 12px 25px;
   border-radius: 8px;
+  margin-bottom: 30px;
   font-weight: bold;
   color: #4b00ff;
   cursor: pointer;

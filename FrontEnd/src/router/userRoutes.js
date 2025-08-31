@@ -9,15 +9,6 @@ export default [
         }
     },
     {
-        path: '/jogos',
-        name: 'Jogos',
-        component: () => import('@/components/pages/JogosComponent.vue'),
-        meta: {
-            auth: false,
-            admin: false
-        }
-    },
-    {
         path: '/noticias',
         name: 'Noticias',
         component: () => import('@/components/pages/NewsComponent.vue'),

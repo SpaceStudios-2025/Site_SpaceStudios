@@ -3,7 +3,7 @@
   <div>
     <!-- Fundo de vídeo -->
     <section class="video-background" aria-hidden="true">
-      <video autoplay muted loop playsinline>
+      <video autoplay muted loop>
         <source src="/src/assets/videos/bg2.mp4" type="video/mp4" />
       </video>
       <!-- Overlay de pixels para efeito visual -->
@@ -45,10 +45,17 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 110vh;
+  height: 100vh;
   overflow: hidden;
   z-index: -1;
   filter: blur(4px); /* desfoca o vídeo */
+}
+
+.video-background video{
+  width: 100%;
+  height: 100vh;
+
+  object-fit: cover;
 }
 
 /* Overlay de pixels sobre o vídeo */
@@ -68,7 +75,8 @@
    CONTEÚDO PRINCIPAL
    ========================================== */
 .home-container {
-  min-height: calc(100vh - 80px);
+  height: calc(100vh - 150px);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,7 +87,7 @@
 
 /* Título principal */
 .title-home {
-  font-size: clamp(2.5rem, 8vw, 130px);
+  font-size: clamp(2.5rem, 7vw, 130px);
   text-transform: uppercase;
   font-weight: bold;
   color: transparent;
@@ -98,6 +106,8 @@
   color: #ccc;
   margin-bottom: 1rem;
   text-align: left;
+
+  line-height: 100px;
 }
 
 /* Linha decorativa */
@@ -147,6 +157,12 @@
 /* ==========================================
    MEDIA QUERIES (RESPONSIVO)
    ========================================== */
+
+@media (max-width: 1024px){
+  .button-home {
+    display: none;
+  }
+}
 @media (max-width: 768px) {
   .home-container {
     align-items: center;
@@ -156,11 +172,14 @@
   .title-home,
   .subtitle-home {
     text-align: center;
+    font-size: 3.5rem;
     -webkit-text-stroke: 1.5px #fff;
+    line-height: 50px;
   }
 
   .trail-home {
     max-width: 300px;
+    
   }
 
   .text-home {
@@ -171,21 +190,27 @@
   }
 
   .button-home {
-    margin: 0 auto;
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
   .title-home {
     font-size: 2.2rem;
+    line-height: 20px;
   }
 
   .subtitle-home {
     font-size: 1.8rem;
+    line-height: 20px;
   }
 
   .text-home {
     font-size: 0.85rem;
+  }
+
+  .button-home {
+    display: inline;
   }
 }
 </style>

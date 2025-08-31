@@ -9,14 +9,18 @@
 
     <!-- Cards de informações -->
     <section class="info-cards">
-      <article class="card">
-        <h5>Instagram</h5>
-        <p>@space._.studios01</p>
-      </article>
-      <article class="card">
-        <h5>Itch.io</h5>
-        <p>space-studios-oficial.itch.io/</p>
-      </article>
+      <a href="https://linktr.ee/spacestudiosbr" target="_blank">
+        <article class="card">
+          <h5>Linktree</h5>
+          <p>spacestudiosbr</p>
+        </article>
+      </a>
+      <a href="mailto:spacestudios2024@gmail.com" target="_blank">
+        <article class="card">
+          <h5>Email</h5>
+          <p>spacestudios2024</p>
+        </article>
+      </a>
     </section>
 
     <!-- Formulário de contato -->
@@ -31,16 +35,16 @@
     <footer class="redes">
       <h4 class="redes-title">Nossas Redes</h4>
       <nav class="container-redes" aria-label="Redes sociais">
-        <a href="#" aria-label="Facebook" class="btn-social">
-          <img src="@/assets/img/Icones/facebook.png" alt="Facebook" />
+        <a href="https://www.tiktok.com/@space._.studios01" aria-label="TikTok" target="_blank" class="btn-social">
+          <img src="@/assets/img/Icones/tiktok.png" alt="TikTok" />
         </a>
-        <a href="#" aria-label="Instagram" class="btn-social">
+        <a href="https://www.instagram.com/space._.studios01/" target="_blank" aria-label="Instagram" class="btn-social">
           <img src="@/assets/img/Icones/instagram.png" alt="Instagram" />
         </a>
-        <a href="#" aria-label="X (Twitter)" class="btn-social">
-          <img src="@/assets/img/Icones/x.png" alt="X (Twitter)" />
+        <a href="https://space-studios-oficial.itch.io/" aria-label="Itch IO" target="_blank" class="btn-social">
+          <img src="@/assets/img/Icones/itchio.svg" alt="Itch.IO" />
         </a>
-        <a href="#" aria-label="YouTube" class="btn-social">
+        <a href="https://www.youtube.com/@space._.studios01" target="_blank" aria-label="YouTube" class="btn-social">
           <img src="@/assets/img/Icones/youtube.png" alt="YouTube" />
         </a>
       </nav>
@@ -63,6 +67,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: #222;
   padding: 40px 20px;
@@ -214,7 +219,7 @@ export default {
 @media (max-width: 480px) {
   .title { font-size: 2rem; }
   .subtitle { font-size: 1rem; }
-  .info-cards { flex-direction: column; gap: 15px; }
+  .info-cards { flex-direction: row; gap: 15px; }
   .card { width: 100%; }
   .contact-form { max-width: 100%; }
   .btn-social img { width: 40px; height: 40px; }

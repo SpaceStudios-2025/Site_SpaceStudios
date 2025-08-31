@@ -1,6 +1,5 @@
-<template>
-    <template v-if="!auth.isAuthenticated">
-        <div class="container">
+<template v-if="!auth.isAuthenticated">
+    <div class="container">
         <div class="bg"></div>
             <div class="content">
                 <h2 class="title">Sign In</h2>
@@ -25,8 +24,7 @@
                     <p class="signUp"><a href="/">Home</a></p>
                 </div>
             </div>
-        </div>
-    </template>
+    </div>
 </template>
 <script setup>
     import http from '@/services/http.js';
@@ -58,27 +56,20 @@
 </script>
 <style scoped>
     .container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        flex-direction: column;
-
-        height: 100vh;
-
         color: #444;
-
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+        overflow: hidden;
     }
 
     .bg{
         background-image: url('../../assets/img/backgroundLogin.jpg');
-        width: 100%;
+        width: 100vw;
         height: 100vh;
         position: absolute;
         z-index: -1;
 
-        background-position: left bottom;
+        background-position: center bottom;
         background-size: cover;
         background-attachment: fixed;
 
@@ -98,6 +89,14 @@
 
         display: flex;
         align-items: center;
+        justify-content: center;
+
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+
 
         flex-direction: column;
     }

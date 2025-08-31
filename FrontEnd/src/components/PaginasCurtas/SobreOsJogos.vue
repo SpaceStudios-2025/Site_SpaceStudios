@@ -79,7 +79,6 @@ export default {
 
 /* ----------------- BANNER ----------------- */
 .banner {
-  background: url('@/assets/img/banner-games.jpg') center/cover no-repeat;
   height: 60vh;
   display: flex;
   align-items: center;

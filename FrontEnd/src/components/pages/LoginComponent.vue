@@ -3,7 +3,13 @@
 </script>
 
 <template>
-    <main>
+    <main class="login">
         <Login/>
     </main>
 </template>
+
+<style scoped>
+    .login{
+        width: 100vw;
+    }
+</style>

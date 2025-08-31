@@ -173,7 +173,6 @@ export default {
 .image-wrapper {
   position: relative;
   width: calc(600px, 10vw, 800px);
-  height: calc(600px, 10vh, 800px);
   border-radius: 30px;
   overflow: hidden;
   cursor: pointer;
@@ -184,8 +183,6 @@ export default {
 
 .image-wrapper img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   transition: transform 0.5s ease;
 }
 

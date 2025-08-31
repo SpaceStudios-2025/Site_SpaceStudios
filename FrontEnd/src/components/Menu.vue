@@ -17,24 +17,29 @@
 
       <!-- MENU ESQUERDO -->
       <nav>
-        <ul class="menu-content-left" :class="{ 'active': isMenuOpen }">
+      <ul class="menu-content-right" :class="{ 'active': isMenuOpen }">
+          <li class="btnhome" :class="{ 'active': isMenuOpen }" @click="closeMenu">
+            <router-link to="/"> Home </router-link>
+          </li>
           <li class="btn-menu" @click="closeMenu">
-            <a href="/#sobre">
-              Sobre nós 
+            <router-link to="/sobreosjogos">
+              Sobre
               <span class="material-symbols-outlined">info</span>
-            </a>
+            </router-link>
           </li>
+          
           <li class="btn-menu" @click="closeMenu">
-            <a href="/#estudio">
-              Novidades 
-              <span class="material-symbols-outlined">campaign</span>
-            </a>
+            <router-link to="/privacidade">
+              Privacidade
+              <span class="material-symbols-outlined">privacy</span>
+            </router-link>
           </li>
+
           <li class="btn-menu" @click="closeMenu">
-            <a href="/#contato"> 
-              Contato 
-              <span class="material-symbols-outlined">call</span>
-            </a>
+            <router-link to=""> 
+              Em Breve
+              <span class="material-symbols-outlined">timer</span>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -54,16 +59,18 @@
               <span class="material-symbols-outlined">news</span>
             </router-link>
           </li>
-          <li class="btn-menu" @click="closeMenu">
-            <router-link to=""> 
-              Em Breve
-              <span class="material-symbols-outlined">timer</span>
-            </router-link>
-          </li>
+          
           <li class="btn-menu" @click="closeMenu">
             <router-link to="/jogos">
               Jogos
               <span class="material-symbols-outlined">joystick</span>
+            </router-link>
+          </li>
+
+          <li class="btn-menu" @click="closeMenu">
+            <router-link to="/desenvolvimento">
+              Desenvolvimento
+              <span class="material-symbols-outlined">code</span>
             </router-link>
           </li>
           
@@ -87,6 +94,10 @@
                 <li><a href="/sobreosjogos">Sobre os Jogos <span class="material-symbols-outlined">gamepad</span></a></li>
                 <li><a href="/privacidade">Privacidade <span class="material-symbols-outlined">lock_person</span></a></li>
                 <li><a href="/desenvolvimento">Desenvolvimento <span class="material-symbols-outlined">data_object</span></a></li>
+                <li><a href="/desenvolvimento">Jogos <span class="material-symbols-outlined">joystick</span></a></li>
+                <li><a href="/desenvolvimento">Noticiais <span class="material-symbols-outlined">news</span></a></li>
+                <li><a href="/desenvolvimento">Em breve <span class="material-symbols-outlined">timer</span></a></li>
+
                 
                 <li v-if="auth.isAuthenticated" v-on:click="logout"><a href="">Sair <span class="material-symbols-outlined">logout</span></a></li>
                 <li v-else><a href="/login">Entrar <span class="material-symbols-outlined">login</span></a></li>
@@ -193,7 +204,7 @@ header.menu-container {
 /* ----------------DropDown Profile ---------------- */
 .container-profile {
   position: absolute;
-  right: 10px;
+  right: 30px;
   display: flex;
   justify-content: flex-end;
   align-items: center;

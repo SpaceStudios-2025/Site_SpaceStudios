@@ -44,3 +44,4 @@ Route::get('/games',[GameController::class, 'index']);
 Route::delete('/games/{id}', [GameController::class, 'destroy']);
 Route::get('/games/show/{id}',[GameController::class, 'show']);
 Route::put('/games/update/{id}',[GameController::class, 'update']);
+
