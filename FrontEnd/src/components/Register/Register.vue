@@ -46,10 +46,6 @@
         }
     }
 
-    http.post('https://spacestudios.com.br/api/register', { name: 'teste' })
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-
 </script>
 <style scoped>
     .container{
@@ -59,7 +55,7 @@
 
         flex-direction: column;
 
-        width: 100%;
+        width: 140vw;
         height: 100vh;
 
         color: #444;
@@ -69,7 +65,7 @@
 
     .bg{
         background-image: url('../../assets/img/backgroundLogin.jpg');
-        width: 100%;
+        width: 140%;
         height: 100vh;
         position: absolute;
         z-index: -1;
@@ -83,7 +79,7 @@
 
     .content{
         background-color: #fff;
-        width: 50%;
+        width: 130vw;
         max-width: 390px;
 
         border-radius: 10px;

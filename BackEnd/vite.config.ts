@@ -28,4 +28,13 @@ export default defineConfig({
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
         },
     },
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://127.0.0.1:8000', // Laravel
+                changeOrigin: true,
+                secure: false,
+            },
+        },
+    },
 });
